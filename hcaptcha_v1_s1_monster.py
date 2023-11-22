@@ -38,7 +38,7 @@ async def main():
                     "args": [
                         "--no-sandbox",
                         "--disable-setuid-sandbox",
-                        # f"--proxy-server=http://{proxy_chosen}",
+                        f"--proxy-server=http://{proxy_chosen}",
                     ]
                 }
             )
