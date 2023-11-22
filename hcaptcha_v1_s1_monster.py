@@ -1,7 +1,7 @@
 import asyncio
 from pyppeteer import launch
 from capmonstercloudclient import CapMonsterClient, ClientOptions
-from capmonstercloudclient.requests import HcaptchaRequest
+from capmonstercloudclient.requests import HcaptchaRequest, HcaptchaProxylessRequest
 from proxy import proxy
 import random
 import json
@@ -38,7 +38,7 @@ async def main():
                     "args": [
                         "--no-sandbox",
                         "--disable-setuid-sandbox",
-                        f"--proxy-server=http://{proxy_chosen}",
+                        # f"--proxy-server=http://{proxy_chosen}",
                     ]
                 }
             )
@@ -52,12 +52,12 @@ async def main():
                 api_key="3e79c97ba8afa9fb6bd60335e0e2b852"
             )
 
-            task_id = HcaptchaRequest(
+            task_id = HcaptchaProxylessRequest( # ! HcaptchaRequest
                 websiteUrl=url,
                 websiteKey=website_key,
-                proxyType="http",
-                proxyAddress="8.8.8.8",
-                proxyPort=8080,
+                # proxyType="http",
+                # proxyAddress="8.8.8.8",
+                # proxyPort=8080,
             )
 
             cap_monster_client = CapMonsterClient(options=capMonsterOptions)
