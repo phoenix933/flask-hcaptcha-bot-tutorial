@@ -61,7 +61,7 @@ async def main():
             solution = solver.hcaptcha(sitekey=website_key, url=url)
             
             if solution:
-                captcha_key = solution["solution"]["gRecaptchaResponse"]
+                captcha_key = solution["code"]
 
             txt_cpf_element = await page.querySelector('input[name="txtCPF"]')
             if txt_cpf_element:
