@@ -25,7 +25,7 @@ def create_session():
     return jsonify({"token": token})
 
 @app.route("/create-session-monster", methods=["POST", "GET"])
-def create_session():
+def create_session_monster():
     cpf = request.args.get("cpf", "06780432627")
     data_nascimento = request.args.get("data_nascimento", "20/05/1983")
     token = str(uuid.uuid4())
