@@ -45,7 +45,7 @@ def create_session_2captcha():
     token = str(uuid.uuid4())
 
     process = subprocess.Popen(
-        ["python3", "hcaptcha_v1_s1_monster.py", token, cpf, data_nascimento],
+        ["python3", "hcaptcha_v1_s2_twocaptcha.py", token, cpf, data_nascimento],
         stdout=subprocess.PIPE,
     )
     return render_template(
