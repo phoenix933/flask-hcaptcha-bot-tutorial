@@ -63,9 +63,9 @@ async def main():
             cap_monster_client = CapMonsterClient(options=capMonsterOptions)
             
             solution = await cap_monster_client.solve_captcha(task_id)
-            print(solution)
+            # print(solution)
             if solution:
-                captcha_key = solution["solution"]["gRecaptchaResponse"]
+                captcha_key = solution["gRecaptchaResponse"]
             
            
             txt_cpf_element = await page.querySelector('input[name="txtCPF"]')
