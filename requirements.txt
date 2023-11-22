@@ -1,3 +1,4 @@
 flask
 pyppeteer
 capsolver_api
+capmonstercloudclient
