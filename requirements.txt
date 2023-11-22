@@ -2,3 +2,4 @@ flask
 pyppeteer
 capsolver_api
 capmonstercloudclient
+2captcha-python

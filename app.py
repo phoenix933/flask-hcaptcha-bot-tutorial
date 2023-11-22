@@ -38,6 +38,20 @@ def create_session_monster():
         "page.html", token=token, cpf=cpf, data_nascimento=data_nascimento
     )
     return jsonify({"token": token})
+@app.route("/create-session-2captcha", methods=["POST", "GET"])
+def create_session_2captcha():
+    cpf = request.args.get("cpf", "06780432627")
+    data_nascimento = request.args.get("data_nascimento", "20/05/1983")
+    token = str(uuid.uuid4())
+
+    process = subprocess.Popen(
+        ["python3", "hcaptcha_v1_s1_monster.py", token, cpf, data_nascimento],
+        stdout=subprocess.PIPE,
+    )
+    return render_template(
+        "page.html", token=token, cpf=cpf, data_nascimento=data_nascimento
+    )
+    return jsonify({"token": token})
 
 
 @app.route("/create-session-v2", methods=["POST", "GET"])
