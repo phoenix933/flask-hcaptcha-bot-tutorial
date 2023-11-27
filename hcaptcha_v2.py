@@ -39,8 +39,8 @@ async def main():
             url = "https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
             browser = await launch(
                 options={
-                    "headless": False,#True
-                    "ignoreDefaultArgs": "--disable extensions",
+                    # "headless": False,#True
+                    # "ignoreDefaultArgs": "--disable extensions",
                     "args": [
                         "--no-sandbox",
                         "--disable-setuid-sandbox",
