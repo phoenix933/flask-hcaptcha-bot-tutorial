@@ -89,7 +89,7 @@ def download(upload_id):
     )
     
 
-@app.route("/download_v2/<upload_id>")
+@app.route("/download-v2/<upload_id>")
 def download_v2(upload_id):
     file_path = f"data/{upload_id}.json"
     content = {
