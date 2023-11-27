@@ -56,17 +56,12 @@ async def main():
             website_key = await page.evaluate(
                 '(element) => element.getAttribute("data-sitekey")', element
             )
-            
-            
-            
-            
-            
-            
+
             capMonsterOptions = ClientOptions(
                 api_key="3e79c97ba8afa9fb6bd60335e0e2b852"
             )
 
-            task_id = HcaptchaProxylessRequest( # ! HcaptchaRequest
+            task_id = HcaptchaProxylessRequest(  # ! HcaptchaRequest
                 websiteUrl=url,
                 websiteKey=website_key,
                 # proxyType="http",
@@ -75,19 +70,15 @@ async def main():
             )
 
             cap_monster_client = CapMonsterClient(options=capMonsterOptions)
-            
+
             solution = await cap_monster_client.solve_captcha(task_id)
             # print(solution)
             if solution:
                 captcha_key = solution["gRecaptchaResponse"]
-            
-            
-            
-            
-            
+
             txt_cnpj_element = await page.querySelector("input#cnpj")
             if txt_cnpj_element:
-                await txt_cnpj_element.type(cnpj)
+                await txt_cnpj_element.type(cnpj, {"delay": 100})
             else:
                 print("txt_cnpj element not found!")
 
@@ -109,21 +100,49 @@ async def main():
             # # print(await page.evaluate('(btn) => btn.getAttribute("class")', await page.querySelector('h1')))
             # print(title)
             selector = "#app"  # div[id='main']
-            text = await page.evaluate(
+            cnpjContent = await page.evaluate(
                 "(selector) => document.querySelector(selector).innerHTML", selector
             )
-            savedTxt = text
-            await save_text_as_txt({"type": "content", "data": savedTxt})
-            print(text)
+
+            await page.evaluate(
+                "(selector) => selector.click()",
+                page.querySelector('button[name="qsa"]'),
+            )
+            page.waitFor(2000)
+            qsaContent = await page.evaluate(
+                "(selector) => selector.innerHTML", page.querySelector("div.conteudo")
+            )
+
+            await save_text_as_txt(
+                {
+                    "type": "content",
+                    "data": {"cnpjContent": cnpjContent, "qsaData": qsaContent},
+                }
+            )
+            print(cnpjContent, qsaContent)
             return
         except Exception as e:
             count = count + 1
             if count < limit_count:
                 await save_text_as_txt(
-                    {"type": "error", "data": f"{str(e)} Try again {count} time(s)."}
+                    {
+                        "type": "error",
+                        "data": {
+                            "cnpjContent": f"{str(e)} Try again {count} time(s).",
+                            "qsaData": "",
+                        },
+                    }
                 )
             else:
-                await save_text_as_txt({"type": "error", "data": f"{str(e)}, Failed!"})
+                await save_text_as_txt(
+                    {
+                        "type": "error",
+                        "data": {
+                            "cnpjContent": f"{str(e)}, Failed!",
+                            "qsaData": "",
+                        },
+                    }
+                )
                 return
         finally:
             await browser.close()

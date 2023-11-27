@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Page</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .button {
+            width: 180px;
+            height: 50px;
+            cursor: pointer;
+            background-color: rgb(150, 97, 0);
+            text-decoration: none;
+            font-size: 20px;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            box-shadow: #444 10px 5px 10px;
+            transition: all ease-in-out 500ms;
+            padding: 20px;
+        }
+
+        .button:hover {
+            background-color: rgb(201, 130, 0);
+        }
+    </style>
+</head>
+
+<body bgcolor="#888">
+    <div
+        style="max-width: 1500px; margin:auto auto; min-height:800px;  display: flex; flex-direction: column;  align-items: center;gap: 12px;">
+        <div onclick="javascript:window.location.reload();" class="button">Try again now</div>
+
+        <div
+            style="width: 100%; min-height: 600px; overflow-y: visible; height: fit-content; border: 1px solid #ccc; border-radius: 10px; background-color: #fff;display: flex; flex-direction: column;  align-items: center;padding: 20px;">
+            <div id="bot-data">
+
+            </div>
+        </div>
+
+        <div
+            style="width: 100%; min-height: 600px; overflow-y: visible; height: fit-content; border: 1px solid #ccc; border-radius: 10px; background-color: #fff;display: flex; flex-direction: column;  align-items: center;padding: 20px;">
+            <div id="qsa-data">
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        document.getElementById('bot-data').innerHTML = "{{ cnpjContent }}"
+        document.getElementById('bot-data').innerHTML=document.getElementById('bot-data').innerText
+        document.getElementById('qsa-data').innerHTML = "{{ qsaData }}"
+        document.getElementById('qsa-data').innerHTML=document.getElementById('qsa-data').innerText
+    </script>
+</body>
+
+</html>

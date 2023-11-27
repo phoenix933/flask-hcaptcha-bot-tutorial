@@ -87,10 +87,32 @@ def download(upload_id):
         "data.html",
         content=content["data"].replace("\n", " "),
     )
-    # if os.path.exists(file_path):
-    #     return send_from_directory(".", file_path, as_attachment=True)
-    # else:
-    #     return jsonify({"message": "Please try again later."})
+    
+
+@app.route("/download_v2/<upload_id>")
+def download_v2(upload_id):
+    file_path = f"data/{upload_id}.json"
+    content = {
+        "type": "error",
+        "data": {
+            "cnpjContent": "Scraping not finished. Please try again later.",
+            "qsaData": "",
+        },
+    }
+    try:
+        with open(file_path, "r") as f:
+            content = json.load(f)
+        # with open(file_path, "rb") as file:
+        #     content = file.read().decode("utf-8")
+    except:
+        pass
+    print(content)
+
+    return render_template(
+        "data_v2.html",
+        cnpjContent=content["data"]["cnpjContent"].replace("\n", " "),
+        qsaData=content["data"]["qsaData"].replace("\n", " "),
+    )
 
 
 if __name__ == "__main__":
