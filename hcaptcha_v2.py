@@ -1,6 +1,7 @@
 import asyncio
 from pyppeteer import launch
-from capsolver_api import HCaptchaTask
+from capmonstercloudclient import CapMonsterClient, ClientOptions
+from capmonstercloudclient.requests import HcaptchaRequest, HcaptchaProxylessRequest
 from proxy import proxy
 import random
 import json
@@ -55,20 +56,35 @@ async def main():
             website_key = await page.evaluate(
                 '(element) => element.getAttribute("data-sitekey")', element
             )
-            capsolver = HCaptchaTask("CAP-6BF20141323EA1AEB3AF105272AE089A")
-            task_id = capsolver.create_task(
-                task_type="HCaptchaTaskProxyLess",  # HCaptchaTask
-                website_url=url,
-                website_key=website_key,
-                is_invisible=True,
-                # proxy= proxy_chosen
+            
+            
+            
+            
+            
+            
+            capMonsterOptions = ClientOptions(
+                api_key="3e79c97ba8afa9fb6bd60335e0e2b852"
             )
-            while True:
-                solution = capsolver.get_solution(task_id)
-                if solution:
-                    captcha_key = solution["gRecaptchaResponse"]
-                    break
-                await asyncio.sleep(2)
+
+            task_id = HcaptchaProxylessRequest( # ! HcaptchaRequest
+                websiteUrl=url,
+                websiteKey=website_key,
+                # proxyType="http",
+                # proxyAddress="8.8.8.8",
+                # proxyPort=8080,
+            )
+
+            cap_monster_client = CapMonsterClient(options=capMonsterOptions)
+            
+            solution = await cap_monster_client.solve_captcha(task_id)
+            # print(solution)
+            if solution:
+                captcha_key = solution["gRecaptchaResponse"]
+            
+            
+            
+            
+            
             txt_cnpj_element = await page.querySelector("input#cnpj")
             if txt_cnpj_element:
                 await txt_cnpj_element.type(cnpj)
