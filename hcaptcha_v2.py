@@ -106,11 +106,11 @@ async def main():
 
             await page.evaluate(
                 "(selector) => selector.click()",
-                page.querySelector('button[name="qsa"]'),
+                await page.querySelector('button[name="qsa"]'),
             )
             page.waitFor(2000)
             qsaContent = await page.evaluate(
-                "(selector) => selector.innerHTML", page.querySelector("div.conteudo")
+                "(selector) => selector.innerHTML", await page.querySelector("div.conteudo")
             )
 
             await save_text_as_txt(
