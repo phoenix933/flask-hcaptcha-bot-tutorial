@@ -42,11 +42,11 @@ async def main():
                     "headless": False,#True
                     "ignoreDefaultArgs": "--disable extensions",
                     "args": [
-                        # "--no-sandbox",
-                        # "--disable-setuid-sandbox",
+                        "--no-sandbox",
+                        "--disable-setuid-sandbox",
                         # f"--proxy-server=http://{proxy_chosen}",
-                        f"--disable-extensions-except={EXTENSION_ID}",
-                        f"--load-extension={EXTENSION_PATH}",
+                        # f"--disable-extensions-except={EXTENSION_ID}",
+                        # f"--load-extension={EXTENSION_PATH}",
                     ],
                 }
             )
