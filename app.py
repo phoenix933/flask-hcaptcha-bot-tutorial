@@ -56,7 +56,7 @@ def create_session_2captcha():
 
 @app.route("/create-session-v2", methods=["POST", "GET"])
 def create_session_v2():
-    cnpj = request.args.get("CNPJ", "10753249000121")
+    cnpj = request.args.get("cnpj", "10753249000121")
     token = str(uuid.uuid4())
 
     process = subprocess.Popen(
