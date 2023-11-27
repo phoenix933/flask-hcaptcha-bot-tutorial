@@ -108,7 +108,7 @@ async def main():
                 "(selector) => selector.click()",
                 await page.querySelector('button[name="qsa"]'),
             )
-            page.waitFor(2000)
+            page.waitForNavigation()
             qsaContent = await page.evaluate(
                 "(selector) => selector.innerHTML", await page.querySelector("div.conteudo")
             )
